@@ -2,8 +2,9 @@
 
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 
-const { PORT, /*CLIENT_ORIGIN*/ } = require('./config');
+const { PORT, CLIENT_ORIGIN } = require('./config');
 
 const dogRouter = require('./routes/dog');
 const catRouter = require('./routes/cat');
@@ -13,6 +14,12 @@ const app = express();
 app.use(
   morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
     skip: (req, res) => process.env.NODE_ENV === 'test'
+  })
+);
+
+app.use(
+  cors({
+    origin: CLIENT_ORIGIN
   })
 );
 

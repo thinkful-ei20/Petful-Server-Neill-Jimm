@@ -90,4 +90,3 @@ If the respective queue is empty:
   "message":"All dogs have been adopted"
 }
 ```
-
