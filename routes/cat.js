@@ -31,9 +31,14 @@ let catsQueue = [{
 router.get('/', (req, res, next) => {
   const cat = catsQueue.slice(0, 1)[0];
   if(cat){
-    res.json(cat);
+    res.json({
+      animal: cat,
+      message: `${cat.name} is the next cat`,
+    });
   } else {
-    res.json({err: 'All cats have been adopted'});
+    res.json({
+      animal: null,
+      message: 'All cats have been adopted'});
   }
 });
 
@@ -41,11 +46,23 @@ router.delete('/', (req, res, next) => {
   const adoptedCat = catsQueue.splice(0, 1)[0];
   const nextCat = catsQueue.slice(0, 1)[0];
   if(nextCat){
-    res.json(nextCat);
+    res.json({
+      nextAnimal: nextCat,
+      adoptedAnimal: adoptedCat,
+      message: 'Success'
+    });
+  } else if(adoptedCat) {
+    res.json({
+      message: 'Last cat has been adopted',
+      adoptedAnimal: adoptedCat,
+      nextAnimal: null
+    });
   } else {
     res.json({
-      err: 'All dogs have been adopted',
-      adoptedDog: adoptedCat ? adoptedCat : null});
+      message: 'All cats have been adopted',
+      adoptedAnimal: null,
+      nextAnimal: null
+    });
   }
 });
 
