@@ -11,7 +11,7 @@ GET Requests return the next animal in their respective queue. Can be requested 
 #### Example JSON Responses 
 
 If the respective queue is **not** empty:
-'''js
+```js
 {
   animal: {
   imageURL: 'http://www.dogster.com/wp-content/uploads/2015/05/Cute%20dog%20listening%20to%20music%201_1.jpg',
@@ -24,15 +24,15 @@ If the respective queue is **not** empty:
 },
   message: Zeus is the next dog,
 }
-'''
+```
 
 If the respective queue is empty:
-'''js
+```js
 {
   animal: null,
   message: 'All dogs have been adopted'
 }
-'''
+```
 
 ### DELETE
 
