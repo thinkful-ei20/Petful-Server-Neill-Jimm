@@ -37,7 +37,7 @@ router.delete('/', (req, res, next) => {
   } else {
     res.json({
       err: 'All dogs have been adopted',
-      dog: adoptedDog ? adoptedDog : null});
+      adoptedDog: adoptedDog ? adoptedDog : null});
   }
 });
 

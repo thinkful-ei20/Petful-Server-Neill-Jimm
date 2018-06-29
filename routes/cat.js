@@ -29,14 +29,24 @@ let catsQueue = [{
 }];
 
 router.get('/', (req, res, next) => {
-  
   const cat = catsQueue.slice(0, 1)[0];
   if(cat){
     res.json(cat);
   } else {
     res.json({err: 'All cats have been adopted'});
   }
+});
 
+router.delete('/', (req, res, next) => {
+  const adoptedCat = catsQueue.splice(0, 1)[0];
+  const nextCat = catsQueue.slice(0, 1)[0];
+  if(nextCat){
+    res.json(nextCat);
+  } else {
+    res.json({
+      err: 'All dogs have been adopted',
+      adoptedDog: adoptedCat ? adoptedCat : null});
+  }
 });
 
 module.exports = router;
