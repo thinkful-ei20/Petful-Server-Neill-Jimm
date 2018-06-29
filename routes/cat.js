@@ -30,7 +30,7 @@ let catsQueue = [{
 
 router.get('/', (req, res, next) => {
   
-  const cat = catsQueue.splice(0, 1)[0];
+  const cat = catsQueue.slice(0, 1)[0];
   if(cat){
     res.json(cat);
   } else {

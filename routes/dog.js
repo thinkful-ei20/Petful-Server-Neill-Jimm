@@ -22,7 +22,7 @@ let dogsQueue = [{
 
 router.get('/', (req, res, next) => {
   
-  const dog = dogsQueue.splice(0, 1)[0];
+  const dog = dogsQueue.slice(0, 1)[0];
   if(dog){
     res.json(dog);
   } else {
