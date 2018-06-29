@@ -2,7 +2,39 @@
 const express = require('express');
 const router = express.Router();
 
-let dogsQueue = [{
+const Queue = require('./queue/Queue');
+const dogsQueue = new Queue();
+dogsQueue.enqueue({
+  imageURL: 'http://www.dogster.com/wp-content/uploads/2015/05/Cute%20dog%20listening%20to%20music%201_1.jpg',
+  imageDescription: 'A smiling golden-brown golden retreiver listening to music.',
+  name: 'Zeus',
+  sex: 'Male',
+  age: 3,
+  breed: 'Golden Retriever',
+  story: 'Owner Passed away'
+});
+dogsQueue.enqueue({
+  imageURL: 'http://www.dogster.com/wp-content/uploads/2015/05/Cute%20dog%20listening%20to%20music%201_1.jpg',
+  imageDescription: 'A smiling golden-brown golden retreiver listening to music.',
+  name: 'Jupiter',
+  sex: 'Male',
+  age: 2,
+  breed: 'Mostly Golden Retriever',
+  story: 'Owner `Passed away`',
+});
+dogsQueue.enqueue({
+  imageURL: 'http://www.dogster.com/wp-content/uploads/2015/05/Cute%20dog%20listening%20to%20music%201_1.jpg',
+  imageDescription: 'A smiling golden-brown golden retreiver listening to music.',
+  name: 'Athena',
+  sex: 'Female',
+  age: 2,
+  breed: 'Golden Retriever',
+  story: 'Owner founded a new city',
+});
+
+
+
+let dogsArray = [{
   imageURL: 'http://www.dogster.com/wp-content/uploads/2015/05/Cute%20dog%20listening%20to%20music%201_1.jpg',
   imageDescription: 'A smiling golden-brown golden retreiver listening to music.',
   name: 'Zeus',
@@ -21,7 +53,7 @@ let dogsQueue = [{
 }];
 
 router.get('/', (req, res, next) => {
-  const dog = dogsQueue.slice(0, 1)[0];
+  const dog = dogsQueue.peek();
   if(dog){
     res.json({
       animal: dog,
@@ -36,8 +68,8 @@ router.get('/', (req, res, next) => {
 });
 
 router.delete('/', (req, res, next) => {
-  const adoptedDog = dogsQueue.splice(0, 1)[0];
-  const nextDog = dogsQueue.slice(0, 1)[0];
+  const adoptedDog = dogsQueue.dequeue();
+  const nextDog = dogsQueue.peek();
   if(nextDog){
     res.json({
       nextAnimal: nextDog,

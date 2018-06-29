@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Queue = require('./queue/Queue')
+const Queue = require('./queue/Queue');
 
 let catsQueue = new Queue;
 catsQueue.enqueue({
