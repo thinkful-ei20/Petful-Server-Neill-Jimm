@@ -2,7 +2,39 @@
 const express = require('express');
 const router = express.Router();
 
-let catsQueue = [{
+const Queue = require('./queue/Queue')
+
+let catsQueue = new Queue;
+catsQueue.enqueue({
+  imageURL:'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg', 
+  imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
+  name: 'Fluffy',
+  sex: 'Female',
+  age: 2,
+  breed: 'Bengal',
+  story: 'Thrown on the street'
+});
+catsQueue.enqueue({
+  imageURL:'https://drive.google.com/open?id=12pmjrHCdJYeslWdClR-uWKPyVauTZAqf',
+  imageDescription: 'White and grey calico laying on her back.',
+  name: 'Dreamboat',
+  sex: 'Female',
+  age: 3,
+  breed: 'Calico',
+  story: 'Thrown on the street'
+});
+catsQueue.enqueue({
+  imageURL:'https://drive.google.com/open?id=1h1IeyVVyimnMKioEK_iSMte0fb-uw0rZ',
+  imageDescription: 'White and grey calico sitting on a cat tree.',
+  name: 'Dreamboat\'s Twin',
+  sex: 'Female',
+  age: 4,
+  breed: 'Calico',
+  story: 'Family moved and couldn\'t taker her'
+});
+
+
+let catsArray = [{
   imageURL:'https://assets3.thrillist.com/v1/image/2622128/size/tmg-slideshow_l.jpg', 
   imageDescription: 'Orange bengal cat with black stripes lounging on concrete.',
   name: 'Fluffy',
@@ -29,7 +61,7 @@ let catsQueue = [{
 }];
 
 router.get('/', (req, res, next) => {
-  const cat = catsQueue.slice(0, 1)[0];
+  const cat = catsQueue.peek();
   if(cat){
     res.json({
       animal: cat,
@@ -38,13 +70,14 @@ router.get('/', (req, res, next) => {
   } else {
     res.json({
       animal: null,
-      message: 'All cats have been adopted'});
+      message: 'All cats have been adopted'
+    });
   }
 });
 
 router.delete('/', (req, res, next) => {
-  const adoptedCat = catsQueue.splice(0, 1)[0];
-  const nextCat = catsQueue.slice(0, 1)[0];
+  const adoptedCat = catsQueue.dequeue();
+  const nextCat = catsQueue.peek();
   if(nextCat){
     res.json({
       nextAnimal: nextCat,
